@@ -1,47 +1,65 @@
-from flask_login import current_user, login_user, logout_user, login_required
 from app.forms import LoginForm, RegistrationForm
-from werkzeug.urls import url_parse
-from flask import render_template, redirect, url_for, flash, request
-from app.models import User
-from app import app, db
+from flask import render_template, redirect, url_for, flash, request, session
+from app import app
 
 
 @app.route('/')
 def index():
-    return render_template('main.html')
+    form1 = LoginForm()
+    form2 = RegistrationForm()
+    return render_template('main.html', form1=form1, form2=form2)
 
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/login', methods=['POST'])
 def login():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-    form = LoginForm()
+    form = LoginForm(request.form)
+
     if form.validate_on_submit():
-        validate_user = User.query.filter_by(username=form.username.data).first()
-        if validate_user is None or not validate_user.check_password(form.password.data):
+        data = form.validate_form()
+        if data['error_code'] == 2:
             flash('Неверный логин/пароль')
-            return redirect(url_for('login'))
-        login_user(validate_user, remember=form.remember_me.data)
-        next_page = request.args.get('next')
-        if not next_page or url_parse(next_page).netloc != '':
-            next_page = url_for('my_books')
-        return redirect(next_page)
-    return render_template('main.html', title='Вход', form=form)
+            return redirect('/')
+        # TODO: нормальное хеширование строки
+        string_check = form.email.replace("@", "-")
+        session[string_check] = data['message']
+        return redirect(url_for('get_books', string_check=string_check))
 
-@app.route('/logout')
-def logout():
-    logout_user()
-    return redirect(url_for(''))
+    return redirect('/')
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/logout/<string_check>')
+def logout(string_check):
+    session.pop(string_check, None)
+    return redirect('/')
+
+@app.route('/register', methods=['POST'])
 def register():
-    if current_user.is_authenticated:
-        return redirect(url_for('index'))
-    form = RegistrationForm()
+    form = RegistrationForm(request.form)
+
     if form.validate_on_submit():
-        check_user = User(email=form.email.data)
-        check_user.set_password(form.password.data)
-        db.session.add(check_user)
-        db.session.commit()
-        flash('Вы успешно зарегистрировались!')
-        return redirect(url_for('login'))
-    return render_template('my_books.html', title='Регистрация', form=form)
+
+        data = form.validate_form()
+        if data['error_code'] == 0 and data['message'] == 'Success':
+            flash('Вы успешно зарегистрировались!')
+            # TODO: нормальное хеширование строки
+            string_check = form.email.replace("@", "-")
+            session[string_check] = data['message']
+            return redirect(url_for('get_books', string_check=string_check))
+
+    return redirect('/')
+
+@app.route('/list_my_books')
+def get_books():
+    user_uuid = request.args['string_check']
+    string_check = session.get(user_uuid)
+    return render_template('my_books.html',string_check=string_check)
+
+@app.route('/list_new_books')
+def get_new_books():
+    user_uuid = request.args['string_check']
+    string_check = session.get(user_uuid)
+    return render_template('new_books.html',string_check=string_check)
+
+@app.route('/list_recommend_books')
+def get_recommend_books():
+    user_uuid = request.args['string_check']
+    string_check = session.get(user_uuid)
+    return render_template('recomend_books.html',string_check=string_check)

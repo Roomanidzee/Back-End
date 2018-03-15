@@ -1,6 +1,1 @@
-from app import app, db
-from app.models import User, Book, UsersAndBooks
-
-@app.shell_context_processor
-def make_shell_context():
-    return {'db': db, 'User': User, 'Book': Book, 'UsersAndBooks': UsersAndBooks}
+from app import app

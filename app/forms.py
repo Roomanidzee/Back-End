@@ -1,29 +1,47 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, BooleanField, SubmitField
-from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
-from app.models import User
+from wtforms.validators import DataRequired, Email, EqualTo
+from flask import current_app as app, session
+import requests
 
 
 class LoginForm(FlaskForm):
-    email = StringField('Почта', validators=[DataRequired()])
+    email = StringField('Логин', validators=[DataRequired(), Email()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     remember_me = BooleanField('Запомнить меня')
     submit = SubmitField('Войти')
 
+    def validate_form(self):
+
+        validate_url = app.config['API_URL'] + '/login'
+
+        params = {
+            'email': self.email,
+            'password': self.password
+        }
+
+        r = requests.post(validate_url, params)
+
+        return r.json()
+
+
 
 class RegistrationForm(FlaskForm):
-    email = StringField('Почта', validators=[DataRequired(), Email()])
+    email = StringField('Логин', validators=[DataRequired(), Email()])
     password = PasswordField('Пароль', validators=[DataRequired()])
     password2 = PasswordField(
         'Повторите пароль', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('Зарегистрироваться')
 
-    def validate_username(self, username):
-        user = User.query.filter_by(username=username.data).first()
-        if user is not None:
-            raise ValidationError('Используйте уникальный логин.')
+    def validate_form(self):
 
-    def validate_email(self, email):
-        user = User.query.filter_by(email=email.data).first()
-        if user is not None:
-            raise ValidationError('Используйте уникальную почту.')
+        validate_url = app.config['API_URL'] + '/registration'
+
+        params = {
+            'email': self.email,
+            'password': self.password
+        }
+
+        r = requests.post(validate_url, params)
+
+        return r.json()
