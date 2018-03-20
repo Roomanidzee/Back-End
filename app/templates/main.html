@@ -4,159 +4,108 @@
     <title>main</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-    <link rel="stylesheet" type = "text/css" href = "{{ url_for('static', filename = 'css/stylesheet.css') }}">
-    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-black.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/stylesheet.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename = 'css/external_css_libraries/bootstrap4_0_0.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/external_css_libraries/font-awesome.min.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename = 'css/external_css_libraries/w3.css') }}">
 </head>
 
 <style>
-    .nav-link:active, .nav-link:visited, .nav-link:hover{
-        color: white !important;
-    }
-    .log:active, .log:visited, .log:hover{
-        background-color: whitesmoke !important;
-        color: gray !important;
-        border-bottom-color: whitesmoke !important;
-    }
-    .w3-input{
-        color: #000;
-    }
-    .w3-bar-item:active, .w3-bar-item:hover{
-        text-decoration: none !important;
-        background-color: whitesmoke!important;
-        color: black !important;
-    }
-    .w3-bar-item:visited {
-        text-decoration: none !important;
-        color: white !important;
-    }
+
     button:visited {
         border-color: whitesmoke !important;
     }
+
     * {
         outline: none !important;
     }
 </style>
 <body id="myPage">
 
-
-<!-- Sidebar on click -->
-<!--
-<nav class="w3-sidebar w3-bar-block w3-white w3-card w3-animate-left w3-xxlarge" style="display:none;z-index:2" id="mySidebar">
-    <a href="javascript:void(0)" onclick="w3_close()" class="w3-bar-item w3-button w3-display-topright w3-text-teal">Close
-        <i class="fa fa-remove"></i>
-    </a>
-    <a href="#" class="w3-bar-item w3-button">Link 1</a>
-    <a href="#" class="w3-bar-item w3-button">Link 2</a>
-    <a href="#" class="w3-bar-item w3-button">Link 3</a>
-    <a href="#" class="w3-bar-item w3-button">Link 4</a>
-    <a href="#" class="w3-bar-item w3-button">Link 5</a>
-</nav> -->
-
-<!-- Navbar -->
 <div class="w3-top">
-    <div class="w3-bar w3-left-align" style="padding: 4px; background-color:whitesmoke">
-        <a class="navbar-brand" style="font-size: 30px; padding: 20px; color: black; margin-left: 650px" href="#">S o u l  c l o u d</a>
 
-        <ul class="nav float-right nav-pills" style="margin-right: 30px; margin-top: 14px">
-            <li class="nav-item" >
-                <button onclick="document.getElementById('id01').style.display='block'" class="w3-button log" style="font-size: 18px">Вход</button>
-            </li>
-            <li class="nav-item">
-                <button onclick="document.getElementById('id02').style.display='block'" class="w3-button log" style="font-size: 18px">Регистрация</button>
-            </li>
-        </ul>
-
-        <div class="w3-container">
-            <div id="id01" class="w3-modal">
-                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
-
-                    <div class="w3-center"><br>
-                        <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-xlarge close w3-hover-red w3-display-topright"
-                              title="Close Modal">&times;</span>
-                        <h4>Вход</h4>
-                    </div>
-
-                    <form class="w3-container" action = "{{ url_for('login') }}" method = "POST">
-                        {{ form1.hidden_tag() }}
-                        <div class="w3-section">
-
-                            {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                            <ul>
-                              {% for message in messages %}
-                              <li>{{ message }}</li>
-                              {% endfor %}
-                            </ul>
-                            {% endif %}
-                            {% endwith %}
-
-                            {{ form1.email.label }}
-                            {{ form1.email(class_="w3-input w3-border w3-margin-bottom", placeholder = "Введите логин") }}
-
-                            {{ form1.password.label }}
-                            {{ form1.password(class_="w3-input w3-border", type = "password", placeholder="Введите пароль") }}
-
-                            <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Войти</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
+    <nav class="navbar navbar-expand-md navbar-dark" style="padding: 5px; background-color:whitesmoke">
+        <div class="navbar-collapse collapse w-100 order-1 order-md-0 dual-collapse2">
+            <ul class="navbar-nav mr-auto">
+            </ul>
         </div>
+        <div class="mx-auto order-0">
+            <a style="font-size: 30px; padding: 6px; color: black; font-family: Verdana,sans-serif"
+               class="navbar-brand mx-auto">S o u l C l o u d</a>
 
-        <div class="w3-container">
-            <div id="id02" class="w3-modal">
-                <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
+        </div>
+        <div class="navbar-collapse collapse w-100 order-3 dual-collapse2">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a href="#" onclick="document.getElementById('id01').style.display='block'" class="nav-link"
+                       style="font-size: 18px; color: #060606">Вход</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" onclick="document.getElementById('id02').style.display='block'" class="nav-link"
+                       style="font-size: 18px; margin-left: 20px; margin-right: 20px; color: #060606">Регистрация</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
 
-                    <div class="w3-center"><br>
-                        <span onclick="document.getElementById('id02').style.display='none'" class="w3-button w3-xlarge close w3-hover-red w3-display-topright"
-                              title="Close Modal">&times;</span>
-                        <h3>Регистрация</h3>
-                    </div>
+    <div class="w3-container">
+        <div id="id01" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
-                    <form class="w3-container" action="{{ url_for('register') }}" method="POST">
-
-                        {{ form2.hidden_tag() }}
-
-                        <div class="w3-section">
-
-                            {% with messages = get_flashed_messages() %}
-                            {% if messages %}
-                            <ul>
-                              {% for message in messages %}
-                              <li>{{ message }}</li>
-                              {% endfor %}
-                            </ul>
-                            {% endif %}
-                            {% endwith %}
-
-                            {{ form2.email.label }}
-                            {{ form2.email(class_ = "w3-input w3-border w3-margin-bottom", placeholder="Введите логин") }}
-
-                            {{ form2.password.label }}
-                            {{ form2.password(class_ = "w3-input w3-border", type = "password", placeholder="Введите пароль") }}
-
-                            {{ form2.password2.label }}
-                            {{ form2.password2(class_ = "w3-input w3-border", type="password", placeholder="Введите пароль еще раз") }}
-
-                            <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Зарегистрироваться</button>
-                        </div>
-                    </form>
+                <div class="w3-center" style="margin-bottom: 15px"><br>
+                    <span onclick="document.getElementById('id01').style.display='none'"
+                          class="w3-button w3-xlarge close w3-hover-red w3-display-topright"
+                          title="Close Modal">&times;</span>
+                    <h3 style="font-weight: normal">Вход</h3>
                 </div>
+
+                <form class="w3-container" action="{{ url_for('login') }}" method="POST">
+                    <div class="w3-section">
+                        <label><b style="font-weight: normal">E-mail</b></label>
+                        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Введите e-mail"
+                               name="usrname_login" required>
+                        <label><b style="font-weight: normal">Пароль</b></label>
+                        <input class="w3-input w3-border" type="password" placeholder="Введите пароль" name="psw_login"
+                               required>
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Войти</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
+    <div class="w3-container">
+        <div id="id02" class="w3-modal">
+            <div class="w3-modal-content w3-card-4 w3-animate-zoom" style="max-width:600px">
 
+                <div class="w3-center"><br>
+                    <span onclick="document.getElementById('id02').style.display='none'"
+                          class="w3-button w3-xlarge close w3-hover-red w3-display-topright"
+                          title="Close Modal">&times;</span>
+                    <h3 style="font-weight: normal">Регистрация</h3>
+                </div>
 
-    <!-- Navbar on small screens -->
-    <!-- <div id="navDemo" class="w3-bar-block w3-theme-d2 w3-hide w3-hide-large w3-hide-medium">
-         <a href="#team" class="w3-bar-item w3-button">Пункт1</a>
-         <a href="#work" class="w3-bar-item w3-button">Пункт2</a>
-     </div> -->
+                <form class="w3-container" action="/">
+                    <div class="w3-section">
+                        <label><b style="font-weight: normal">E - mail</b></label>
+                        <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Введите e-mail"
+                               name="usrname_register" required>
+                        <label><b style="font-weight: normal">Пароль</b></label>
+                        <input style="margin-bottom: 20px" class="w3-input w3-border" type="password"
+                               placeholder="Введите пароль" name="psw_register" required>
+                        <label><b style="font-weight: normal">Повторите пароль</b></label>
+                        <input class="w3-input w3-border" type="password" placeholder="Введите пароль еще раз"
+                               name="psw_confirm_register" required>
+                        <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">
+                            Зарегистрироваться
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 </div>
 
 
@@ -164,124 +113,93 @@
 
 <div class="w3-display-container w3-animate-opacity">
     <img src="{{ url_for('static', filename = 'img/fone.jpg') }}" alt="boat" style="width:100%;height: 700px">
-
 </div>
-
-<!-- Modal -->
-<!-- <div id="id01" class="w3-modal">
-    <div class="w3-modal-content w3-card-4 w3-animate-top">
-        <header class="w3-container w3-teal w3-display-container">
-            <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-teal w3-display-topright"><i class="fa fa-remove"></i></span>
-            <h4>Oh snap! We just showed you a modal..</h4>
-            <h5>Because we can <i class="fa fa-smile-o"></i></h5>
-        </header>
-        <div class="w3-container">
-            <p>Cool huh? Ok, enough teasing around..</p>
-            <p>Go to our <a class="w3-text-teal" href="/w3css/default.asp">W3.CSS Tutorial</a> to learn more!</p>
-        </div>
-        <footer class="w3-container w3-teal">
-            <p>Modal footer</p>
-        </footer>
-    </div>
-</div> -->
-
-
-
-<!-- Work Row -->
-<!--
-<div class="w3-row-padding w3-padding-64 w3-theme-l1" id="work">
-
-    <div class="w3-quarter">
-        <h2>Наш проект</h2>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
-            in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt
-            in culpa qui officia deserunt mollit anim id est laborum.</p>
-    </div>
-
-    <div class="w3-quarter">
-        <div class="w3-card w3-white">
-            <img src="img3.png" alt="Vernazza" style="width:100%">
-            <div class="w3-container">
-                <h3>Описание 1</h3>
-                <p>Blablabla</p>
-                <p>Blablabla</p>
-                <p>Blablabla</p>
-                <p>Blablabla</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="w3-quarter">
-        <div class="w3-card w3-white">
-            <img src="img3.png" alt="Cinque Terre" style="width:100%">
-            <div class="w3-container">
-                <h3>Описание 2</h3>
-                <p>Blablabla</p>
-                <p>Blablabla</p>
-                <p>Blablabla</p>
-                <p>Blablabla</p>
-            </div>
-        </div>
-    </div>
-
-    <div class="w3-quarter">
-        <div class="w3-card w3-white">
-            <img src="img3.png" alt="Monterosso" style="width:100%">
-            <div class="w3-container">
-                <h3>Описание3</h3>
-                <p>Blablabla</p>
-                <p>Blablabla</p>
-                <p>Blablabla</p>
-                <p>Blablabla</p>
-            </div>
-        </div>
-    </div>
-
-</div>
--->
 
 <!-- Team Container -->
 <div class="w3-container  w3-center" id="team" >
-    <h2 style="margin-top: 3%">НАША КОМАНДА</h2>
+    <h2 style="margin-top: 3%; font-weight: normal">НАША КОМАНДА</h2>
 
     <div class="w3-row"><br>
 
         <div class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/img3.png') }}" alt="Boss" style="width:40%" class="w3-circle w3-hover-opacity">
-            <h4 style="margin-top: 4%">Шафигуллин Тимур</h4>
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Timur.jpg') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <h4 style="margin-top: 4%; font-weight: normal">Шафигуллин Тимур</h4>
         </div>
 
         <div class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/img3.png') }}" alt="Boss" style="width:40%" class="w3-circle w3-hover-opacity">
-            <h4 style="margin-top: 4%">Романов Андрей</h4>
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Andrey.png') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <h4 style="margin-top: 4%; font-weight: normal">Романов Андрей</h4>
         </div>
 
         <div class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/img3.png') }}" alt="Boss" style="width:40%" class="w3-circle w3-hover-opacity">
-            <h4 style="margin-top: 4%">Зарипов Дамир</h4>
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Damir.png') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <h4 style="margin-top: 4%; font-weight: normal">Зарипов Дамир</h4>
         </div>
 
         <div class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/img3.png') }}" alt="Boss" style="width:40%" class="w3-circle w3-hover-opacity">
-            <h4 style="margin-top: 4%">Мухамметзянов Ринат</h4>
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Timur.jpg') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <h4 style="margin-top: 4%; font-weight: normal">Мухамметзянов Ринат</h4>
         </div>
 
         <div style="margin-left: 13%" class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/img3.png') }}" alt="Boss" style="width:40%" class="w3-circle w3-hover-opacity">
-            <h4 style="margin-top: 4%">Гимазова Регина</h4>
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Regina.png') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <h4 style="margin-top: 4%; font-weight: normal">Гимазова Регина</h4>
         </div>
 
         <div class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/img3.png') }}" alt="Boss" style="width:40%" class="w3-circle w3-hover-opacity">
-            <h4 style="margin-top: 4%">Синковец Екатерина</h4>
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Katya.png') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <h4 style="margin-top: 4%; font-weight: normal">Синковец Екатерина</h4>
         </div>
 
         <div class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/img3.png') }}" alt="Boss" style="width:40%" class="w3-circle w3-hover-opacity">
-            <h4 style="margin-top: 4%">Гилязова Энже</h4>
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Enzge.png') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <h4 style="margin-top: 4%; font-weight: normal">Гилязова Энже</h4>
         </div>
     </div>
+</div>
+
+<!-- START THE FEATURETTES -->
+<div class="container marketing">
+    <hr class="featurette-divider">
+
+    <div class="featurette">
+        <img class="featurette-image img-fluid mx-auto pull-right" src="http://placehold.it/512"
+             style="width: 400px; height: 400px">
+        <h2 class="featurette-heading">Responsive Design. <span class="text-muted">It'll blow your mind.</span></h2>
+        <p class="lead">In simple terms, a responsive web design figures out what resolution of device it's being served
+            on. Flexible grids then size correctly to fit the screen.</p>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="featurette">
+        <img class="featurette-image img-fluid mx-auto pull-left" src="http://placehold.it/512"
+             style="width: 400px; height: 400px">
+        <h2 class="featurette-heading">Smaller Footprint. <span class="text-muted">Lightweight.</span></h2>
+        <p class="lead">The new Bootstrap 3 promises to be a smaller build. The separate Bootstrap base and
+            responsive.css files have now been merged into one. There is no more fixed grid, only fluid.</p>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="featurette">
+        <img class="featurette-image img-fluid mx-auto pull-right" src="http://placehold.it/512"
+             style="width: 400px; height: 400px">
+        <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Flatness.</span></h2>
+        <p class="lead">A big design trend for 2013 is "flat" design. Gone are the days of excessive gradients and
+            shadows. Designers are producing cleaner flat designs, and Bootstrap 3 takes advantage of this minimalist
+            trend.</p>
+    </div>
+
+    <hr class="featurette-divider">
+    <!-- /END THE FEATURETTES -->
+
+    <!-- FOOTER -->
+    <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+        <p>This Bootstrap layout is compliments of Bootply. · <a href="http://www.bootply.com/62603">Edit on
+            Bootply.com</a></p>
+    </footer>
 </div>
 
 <!-- START THE FEATURETTES -->
@@ -313,137 +231,7 @@
     <hr class="featurette-divider">
     <!-- /END THE FEATURETTES -->
 
-    <!-- FOOTER -->
-    <footer>
-        <p class="pull-right"><a href="#">Back to top</a></p>
-        <p>This Bootstrap layout is compliments of Bootply. · <a href="http://www.bootply.com/62603">Edit on Bootply.com</a></p>
-    </footer>
 </div>
-
-<!-- Pricing Row -->
-<!--
-<div class="w3-row-padding w3-center w3-padding-64" id="pricing">
-    <h2>PRICING</h2>
-    <p>Choose a pricing plan that fits your needs.</p><br>
-    <div class="w3-third w3-margin-bottom">
-        <ul class="w3-ul w3-border w3-hover-shadow">
-            <li class="w3-theme">
-                <p class="w3-xlarge">Basic</p>
-            </li>
-            <li class="w3-padding-16"><b>10GB</b> Storage</li>
-            <li class="w3-padding-16"><b>10</b> Emails</li>
-            <li class="w3-padding-16"><b>10</b> Domains</li>
-            <li class="w3-padding-16"><b>Endless</b> Support</li>
-            <li class="w3-padding-16">
-                <h2 class="w3-wide"><i class="fa fa-usd"></i> 10</h2>
-                <span class="w3-opacity">per month</span>
-            </li>
-            <li class="w3-theme-l5 w3-padding-24">
-                <button class="w3-button w3-teal w3-padding-large"><i class="fa fa-check"></i> Sign Up</button>
-            </li>
-        </ul>
-    </div>
-
-    <div class="w3-third w3-margin-bottom">
-        <ul class="w3-ul w3-border w3-hover-shadow">
-            <li class="w3-theme-l2">
-                <p class="w3-xlarge">Pro</p>
-            </li>
-            <li class="w3-padding-16"><b>25GB</b> Storage</li>
-            <li class="w3-padding-16"><b>25</b> Emails</li>
-            <li class="w3-padding-16"><b>25</b> Domains</li>
-            <li class="w3-padding-16"><b>Endless</b> Support</li>
-            <li class="w3-padding-16">
-                <h2 class="w3-wide"><i class="fa fa-usd"></i> 25</h2>
-                <span class="w3-opacity">per month</span>
-            </li>
-            <li class="w3-theme-l5 w3-padding-24">
-                <button class="w3-button w3-teal w3-padding-large"><i class="fa fa-check"></i> Sign Up</button>
-            </li>
-        </ul>
-    </div>
-
-    <div class="w3-third w3-margin-bottom">
-        <ul class="w3-ul w3-border w3-hover-shadow">
-            <li class="w3-theme">
-                <p class="w3-xlarge">Premium</p>
-            </li>
-            <li class="w3-padding-16"><b>50GB</b> Storage</li>
-            <li class="w3-padding-16"><b>50</b> Emails</li>
-            <li class="w3-padding-16"><b>50</b> Domains</li>
-            <li class="w3-padding-16"><b>Endless</b> Support</li>
-            <li class="w3-padding-16">
-                <h2 class="w3-wide"><i class="fa fa-usd"></i> 50</h2>
-                <span class="w3-opacity">per month</span>
-            </li>
-            <li class="w3-theme-l5 w3-padding-24">
-                <button class="w3-button w3-teal w3-padding-large"><i class="fa fa-check"></i> Sign Up</button>
-            </li>
-        </ul>
-    </div>
-</div>
--->
-<!-- Contact Container -->
-<!--
-<div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
-    <div class="w3-row">
-        <div class="w3-col m5">
-            <div class="w3-padding-16"><span class="w3-xlarge w3-border-teal w3-bottombar">Contact Us</span></div>
-            <h3>Address</h3>
-            <p>Swing by for a cup of coffee, or whatever.</p>
-            <p><i class="fa fa-map-marker w3-text-teal w3-xlarge"></i>  Chicago, US</p>
-            <p><i class="fa fa-phone w3-text-teal w3-xlarge"></i>  +00 1515151515</p>
-            <p><i class="fa fa-envelope-o w3-text-teal w3-xlarge"></i>  test@test.com</p>
-        </div>
-        <div class="w3-col m7">
-            <form class="w3-container w3-card-4 w3-padding-16 w3-white" action="/action_page.php" target="_blank">
-                <div class="w3-section">
-                    <label>Name</label>
-                    <input class="w3-input" type="text" name="Name" required>
-                </div>
-                <div class="w3-section">
-                    <label>Email</label>
-                    <input class="w3-input" type="text" name="Email" required>
-                </div>
-                <div class="w3-section">
-                    <label>Message</label>
-                    <input class="w3-input" type="text" name="Message" required>
-                </div>
-                <input class="w3-check" type="checkbox" checked name="Like">
-                <label>I Like it!</label>
-                <button type="submit" class="w3-button w3-right w3-theme">Send</button>
-            </form>
-        </div>
-    </div>
-</div>
--->
-
-
-
-<script>
-    // Script for side navigation
-    function w3_open() {
-        var x = document.getElementById("mySidebar");
-        x.style.width = "300px";
-        x.style.paddingTop = "10%";
-        x.style.display = "block";
-    }
-
-    // Close side navigation
-    function w3_close() {
-        document.getElementById("mySidebar").style.display = "none";
-    }
-
-    // Used to toggle the menu on smaller screens when clicking on the menu button
-    function openNav() {
-        var x = document.getElementById("navDemo");
-        if (x.className.indexOf("w3-show") == -1) {
-            x.className += " w3-show";
-        } else {
-            x.className = x.className.replace(" w3-show", "");
-        }
-    }
-</script>
 
 </body>
 </html>

@@ -121,71 +121,107 @@ span.glyphicon {
     margin-left: 50px !important;
 }
 
-.checkbox {
-    margin-bottom: 20px;
-    position: relative;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    -o-user-select: none;
-    user-select: none;
+
+.searchbox{
+    position:relative;
+    min-width:80px;
+    width:0%;
+    height:40px;
+    float:right;
+    overflow:hidden;
+    padding: 0px !important;
+    margin-right: 35px !important;
+    margin-top: 5px !important;
+    margin-bottom: 0px !important;
+    -webkit-transition: width 0.3s;
+    -moz-transition: width 0.3s;
+    -ms-transition: width 0.3s;
+    -o-transition: width 0.3s;
+    transition: width 0.3s;
+    color: white !important;
 }
-.checkbox.show:before {
-    content: '\e013';
-    color: #1fa67b;
-    font-size: 17px;
-    margin: 1px 0 0 3px;
-    position: absolute;
-    pointer-events: none;
+
+.searchbox-input{
+    top:0;
+    right:0;
+    border:0;
+    outline:0;
+    background:whitesmoke;
+    width:100%;
+    height:30px;
+    margin:0;
+    padding:0px 55px 0px 20px;
+    font-size:17px;
+    color: #060606;
+    margin-top: 5px !important;
 }
- .checkbox .character-checkbox {
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-    border-radius: 3px;
-    border: 1px solid #ccc;
-    vertical-align: middle;
-    display: inline-block;
+.searchbox-input::-webkit-input-placeholder {
+    color: #535353;
 }
-.checkbox .label {
-    color: #6d6d6d;
-    font-size: 13px;
+.searchbox-input:-moz-placeholder {
+    color: #535353;
+}
+.searchbox-input::-moz-placeholder {
+    color: #535353;
+}
+.searchbox-input:-ms-input-placeholder {
+    color: #535353;
+}
+
+.searchbox-icon,
+.searchbox-submit{
+    width:80px;
+    height:40px;
+    display:block;
+    position:absolute;
+    top:0;
+    font-size:17px;
+    right:0;
+    padding:0;
+    margin:0;
+    border:0;
+    outline:0;
+    line-height:40px;
+    text-align:center;
+    cursor:pointer;
+    color: white;
+    background:#060606;
+}
+
+.searchbox-open{
+    width:100%;
+}
+
+@font-face {
+    font-family: 'Glyphicons Halflings';
+    font-style: normal;
     font-weight: normal;
+    src: local('Glyphicons Halflings'), url('../fonts/glyphicons-halflings-regular.ttf') format('truetype');
 }
 
-#search {
-    float: right;
-    margin-top: 9px;
-    width: 250px;
+.searchable-container{
+    margin:20px 0 0 0
 }
 
-.search {
-    padding: 5px 0;
-    width: 230px;
-    height: 30px;
-    position: relative;
-    left: 10px;
-    float: left;
-    line-height: 22px;
+.searchable-container label.btn-default.active{
+    background-color: #5fb053;
+    color: white !important;
+}
+.searchable-container label.btn-default{
+    color: black !important;
 }
 
-.search input {
-    position: absolute;
-    width: 0px;
-    float: Left;
-    margin-left: 210px;
-    -webkit-transition: all 0.7s ease-in-out;
-    -moz-transition: all 0.7s ease-in-out;
-    -o-transition: all 0.7s ease-in-out;
-    transition: all 0.7s ease-in-out;
-    height: 30px;
-    line-height: 18px;
-    padding: 0 2px 0 2px;
-    border-radius:1px;
+.searchable-container label.btn-default{
+    width:90%;
+    border:1px solid #efefef;
+    margin:5px;
+    border-radius: 0px !important;
 }
 
-.search:hover input, .search input:focus {
-    width: 200px;
-    margin-left: 0px;
+.searchable-container label .bizcontent {
+    width: 100%;
 }
 
+.searchable-container .btn-group{
+    width:90%
+}
