@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>main</title>
+    <title>Главная страница</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="{{ url_for('static', filename = 'css/stylesheet.css') }}">
@@ -64,9 +64,9 @@
                     <div class="w3-section">
                         <label><b style="font-weight: normal">E-mail</b></label>
                         <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Введите e-mail"
-                               name="usrname_login" required>
+                               name="email" required>
                         <label><b style="font-weight: normal">Пароль</b></label>
-                        <input class="w3-input w3-border" type="password" placeholder="Введите пароль" name="psw_login"
+                        <input class="w3-input w3-border" type="password" placeholder="Введите пароль" name="password"
                                required>
                         <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">Войти</button>
                     </div>
@@ -86,17 +86,17 @@
                     <h3 style="font-weight: normal">Регистрация</h3>
                 </div>
 
-                <form class="w3-container" action="/">
+                <form class="w3-container" action="{{ url_for('register') }}">
                     <div class="w3-section">
                         <label><b style="font-weight: normal">E - mail</b></label>
                         <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Введите e-mail"
-                               name="usrname_register" required>
+                               name="email" required>
                         <label><b style="font-weight: normal">Пароль</b></label>
                         <input style="margin-bottom: 20px" class="w3-input w3-border" type="password"
-                               placeholder="Введите пароль" name="psw_register" required>
+                               placeholder="Введите пароль" name="password" required>
                         <label><b style="font-weight: normal">Повторите пароль</b></label>
                         <input class="w3-input w3-border" type="password" placeholder="Введите пароль еще раз"
-                               name="psw_confirm_register" required>
+                               name="password2" required>
                         <button class="w3-button w3-block w3-green w3-section w3-padding" type="submit">
                             Зарегистрироваться
                         </button>

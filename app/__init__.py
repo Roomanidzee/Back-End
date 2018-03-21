@@ -1,11 +1,9 @@
 from flask import Flask
-from flask_session import Session
-import os
-
-app_settings = os.getenv('app.config.BaseConfig')
+from flask.ext.session import Session
 
 app = Flask(__name__)
-app.config.from_object(app_settings)
+app.config.from_object('app.config.BaseConfig')
+app.secret_key = 'tb52h6b2oh56'
 sess = Session()
 sess.init_app(app)
 
