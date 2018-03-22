@@ -4,7 +4,7 @@ from app import app
 import requests
 
 
-@app.route('/send_like/<token>')
+@app.route('/send_like/<token>', methods=['POST'])
 def send_like(token):
     user_token = session.get(token)
     api_url = "{0}/books/{1}/like/{2}".format(app.config['API_URL'], request.form['book_id'], user_token)
@@ -13,7 +13,7 @@ def send_like(token):
     return redirect(url_for('get_books', token=token))
 
 
-@app.route('/send_dislike/<token>')
+@app.route('/send_dislike/<token>', methods=['POST'])
 def send_dislike(token):
     user_token = session.get(token)
     api_url = "{0}/books/{1}/dislike/{2}".format(app.config['API_URL'], request.form['book_id'], user_token)
@@ -22,7 +22,7 @@ def send_dislike(token):
     return redirect(url_for('get_books', token=token))
 
 
-@app.route('/unlike/<token>')
+@app.route('/unlike/<token>', methods=['POST'])
 def delete_mark(token):
     user_token = session.get(token)
     api_url = "{0}/books/{1}/unlike/{2}".format(app.config['API_URL'], request.form['book_id'], user_token)

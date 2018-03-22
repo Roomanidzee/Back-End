@@ -13,7 +13,12 @@ def add_genre_to_user(token):
     genre_api_url = "{0}/{1}".format(app.config['API_URL'], 'genres')
     resp = requests.get(genre_api_url)
     data = resp.json()
-    genre_ids = [item['id'] for item in data]
+    genre_ids = []
+
+    size = len(data)
+
+    for i in range(size):
+        genre_ids.append(data[i]['id'])
 
     if len(genres) == 0:
         flash('Выберите жанр')
@@ -30,18 +35,15 @@ def add_genre_to_user(token):
         requests.post(add_genre_api_url)
         return redirect(url_for(get_books, token=token))
 
+    count1 = 0
     for item in genres:
-        count1 = genre_ids.count(item)
-
-        if count1 == 0:
-            flash('Некорректно отправлены данные')
-            return redirect('/')
+        count1 += genre_ids.count(item)
 
     for item in genres:
         add_genre_api_url = "{0}/{1}/{2}/{3}".format(app.config['API_URL'], 'genres', item, user_token)
         requests.post(add_genre_api_url)
 
-    return redirect(url_for(get_books, token=token))
+    return redirect(url_for('get_books', token=token))
 
 
 @app.route('/list_my_books/<token>', methods=['GET'])
@@ -69,6 +71,9 @@ def get_books(token):
     for i in range(size1):
         genres.append(Genre(data1[i]['id'], data1[i]['name']))
 
+    if len(data) == 0:
+        books = None
+
     return render_template('my_books.html', user_token=token, books=books, genres=genres)
 
 
@@ -82,12 +87,12 @@ def get_new_books(token):
     size = len(data)
 
     for i in range(size):
-        books.append(Book(data[i]['id'], data[i]['name'], data[i]['author'], data[i]['description'], data[i]['mark']))
+        books.append(Book(data[i]['id'], data[i]['name'], data[i]['author'], data[i]['description'], ''))
 
     return render_template('new_books.html', user_token=token, books=books)
 
 
-@app.route('/list_recommend_books/token', methods=['GET'])
+@app.route('/list_recommend_books/<token>', methods=['GET'])
 def get_recommend_books(token):
     user_token = session.get(token)
     api_url = "{0}/{1}/{2}".format(app.config['API_URL'], 'books/recommended', user_token)
@@ -100,7 +105,7 @@ def get_recommend_books(token):
     size = len(data)
 
     for i in range(size):
-        books.append(Book(data[i]['id'], data[i]['name'], data[i]['author'], data[i]['description'], data[i]['mark']))
+        books.append(Book(data[i]['id'], data[i]['name'], data[i]['author'], data[i]['description'], ''))
 
     return render_template('recomend_books.html', user_token=token, books=books)
 

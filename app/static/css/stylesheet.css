@@ -225,3 +225,10 @@ span.glyphicon {
 .searchable-container .btn-group{
     width:90%
 }
+
+.searchable-container .btn span.glyphicon{
+    opacity: 0;
+}
+.searchable-container .btn.active span.glyphicon {
+    opacity: 1;
+}
