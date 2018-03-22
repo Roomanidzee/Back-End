@@ -1,6 +1,7 @@
 import redis
 
 class BaseConfig(object):
+    SECRET_KEY = 'secret_key'
     DEBUG = True
     SESSION_TYPE = 'redis'
     SESSION_REDIS = redis.Redis('192.168.99.100')

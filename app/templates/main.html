@@ -62,6 +62,17 @@
 
                 <form class="w3-container" action="{{ url_for('login') }}" method="POST">
                     <div class="w3-section">
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        <div class="alert alert-danger" role="alert"
+                             style="border-radius: 0px; height: 40px; margin-top: 10px; padding: 7px">
+                            {% for message in messages %}
+                            <span class="sr-only">Error:</span>
+                            {{ message }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% endwith %}
                         <label><b style="font-weight: normal">E-mail</b></label>
                         <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Введите e-mail"
                                name="email" required>
@@ -88,6 +99,17 @@
 
                 <form class="w3-container" action="{{ url_for('register') }}">
                     <div class="w3-section">
+                        {% with messages = get_flashed_messages() %}
+                        {% if messages %}
+                        <div class="alert alert-danger" role="alert"
+                             style="border-radius: 0px; height: 40px; margin-top: 10px; padding: 7px">
+                            {% for message in messages %}
+                            <span class="sr-only">Error:</span>
+                            {{ message }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                        {% endwith %}
                         <label><b style="font-weight: normal">E - mail</b></label>
                         <input class="w3-input w3-border w3-margin-bottom" type="text" placeholder="Введите e-mail"
                                name="email" required>
@@ -116,43 +138,50 @@
 </div>
 
 <!-- Team Container -->
-<div class="w3-container  w3-center" id="team" >
+<div class="w3-container  w3-center" id="team">
     <h2 style="margin-top: 3%; font-weight: normal">НАША КОМАНДА</h2>
 
     <div class="w3-row"><br>
 
         <div class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Timur.jpg') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Timur.jpg') }}" style="width:40%"
+                 class="w3-circle w3-hover-opacity">
             <h4 style="margin-top: 4%; font-weight: normal">Шафигуллин Тимур</h4>
         </div>
 
         <div class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Andrey.png') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Andrey.png') }}" style="width:40%"
+                 class="w3-circle w3-hover-opacity">
             <h4 style="margin-top: 4%; font-weight: normal">Романов Андрей</h4>
         </div>
 
         <div class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Damir.png') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Damir.png') }}" style="width:40%"
+                 class="w3-circle w3-hover-opacity">
             <h4 style="margin-top: 4%; font-weight: normal">Зарипов Дамир</h4>
         </div>
 
         <div class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Timur.jpg') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Rinat.jpg') }}" style="width:40%"
+                 class="w3-circle w3-hover-opacity">
             <h4 style="margin-top: 4%; font-weight: normal">Мухамметзянов Ринат</h4>
         </div>
 
         <div style="margin-left: 13%" class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Regina.png') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Regina.png') }}" style="width:40%"
+                 class="w3-circle w3-hover-opacity">
             <h4 style="margin-top: 4%; font-weight: normal">Гимазова Регина</h4>
         </div>
 
         <div class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Katya.png') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Katya.png') }}" style="width:40%"
+                 class="w3-circle w3-hover-opacity">
             <h4 style="margin-top: 4%; font-weight: normal">Синковец Екатерина</h4>
         </div>
 
         <div class="w3-quarter">
-            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Enzge.png') }}" style="width:40%" class="w3-circle w3-hover-opacity">
+            <img src="{{ url_for('static', filename = 'img/soul_cloud_team/Enzge.png') }}" style="width:40%"
+                 class="w3-circle w3-hover-opacity">
             <h4 style="margin-top: 4%; font-weight: normal">Гилязова Энже</h4>
         </div>
     </div>
@@ -207,25 +236,32 @@
     <hr class="featurette-divider">
 
     <div class="featurette">
-        <img class="featurette-image img-fluid mx-auto pull-right" src="http://placehold.it/512" style="width: 400px; height: 400px">
+        <img class="featurette-image img-fluid mx-auto pull-right" src="http://placehold.it/512"
+             style="width: 400px; height: 400px">
         <h2 class="featurette-heading">Responsive Design. <span class="text-muted">It'll blow your mind.</span></h2>
-        <p class="lead">In simple terms, a responsive web design figures out what resolution of device it's being served on. Flexible grids then size correctly to fit the screen.</p>
+        <p class="lead">In simple terms, a responsive web design figures out what resolution of device it's being served
+            on. Flexible grids then size correctly to fit the screen.</p>
     </div>
 
     <hr class="featurette-divider">
 
     <div class="featurette">
-        <img class="featurette-image img-fluid mx-auto pull-left" src="http://placehold.it/512" style="width: 400px; height: 400px">
+        <img class="featurette-image img-fluid mx-auto pull-left" src="http://placehold.it/512"
+             style="width: 400px; height: 400px">
         <h2 class="featurette-heading">Smaller Footprint. <span class="text-muted">Lightweight.</span></h2>
-        <p class="lead">The new Bootstrap 3 promises to be a smaller build. The separate Bootstrap base and responsive.css files have now been merged into one. There is no more fixed grid, only fluid.</p>
+        <p class="lead">The new Bootstrap 3 promises to be a smaller build. The separate Bootstrap base and
+            responsive.css files have now been merged into one. There is no more fixed grid, only fluid.</p>
     </div>
 
     <hr class="featurette-divider">
 
     <div class="featurette">
-        <img class="featurette-image img-fluid mx-auto pull-right" src="http://placehold.it/512" style="width: 400px; height: 400px">
+        <img class="featurette-image img-fluid mx-auto pull-right" src="http://placehold.it/512"
+             style="width: 400px; height: 400px">
         <h2 class="featurette-heading">And lastly, this one. <span class="text-muted">Flatness.</span></h2>
-        <p class="lead">A big design trend for 2013 is "flat" design. Gone are the days of excessive gradients and shadows. Designers are producing cleaner flat designs, and Bootstrap 3 takes advantage of this minimalist trend.</p>
+        <p class="lead">A big design trend for 2013 is "flat" design. Gone are the days of excessive gradients and
+            shadows. Designers are producing cleaner flat designs, and Bootstrap 3 takes advantage of this minimalist
+            trend.</p>
     </div>
 
     <hr class="featurette-divider">
