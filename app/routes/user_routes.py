@@ -48,7 +48,7 @@ def register():
         flash('Пароли не совпадают. Введите их ещё раз')
         return redirect(url_for('index'))
 
-    api_url = "{0}/{1}".format(app.config['API_URL'], 'register')
+    api_url = "{0}/{1}".format(app.config['API_URL'], 'registration')
 
     r = requests.post(api_url, {
         'email': email,
@@ -56,6 +56,7 @@ def register():
     })
 
     data = r.json()
+    print(data)
 
     if data['error_code'] == 3:
         flash('Данный логин занят. Зарегистрируйтесь с другим.')
