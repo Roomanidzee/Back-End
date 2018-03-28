@@ -1,15 +1,9 @@
 # -*- coding: utf-8 -*-
+from app.services.books_service import get_books_for_user, analyse_book_for_user
 from flask import render_template, redirect, url_for, flash, request, session
-
-from app.classification_module.numpy_proceed import preprocess_array
-from app.classification_module.prepare_ratio import get_model_ratio
-from app.doc2vec_module.constants import FileConstants
-from app.doc2vec_module.train_model import get_model_for_genre
-from app.models import Book, Genre
-from app.doc2vec_module import load
-from werkzeug.utils import secure_filename
+from app.models import Book
 from app import app
-import os, requests
+import requests
 
 
 @app.route('/add_genre/<token>', methods=['POST'])
@@ -55,32 +49,7 @@ def add_genre_to_user(token):
 
 @app.route('/list_my_books/<token>', methods=['GET'])
 def get_books(token):
-    user_token = session.get(token)
-    api_url = "{0}/{1}/{2}".format(app.config['API_URL'], 'books', user_token)
-    genre_api_url = "{0}/{1}".format(app.config['API_URL'], 'genres')
-
-    resp = requests.get(api_url)
-    data = resp.json()
-    print(data)
-
-    resp1 = requests.get(genre_api_url)
-    data1 = resp1.json()
-
-    books = []
-    genres = []
-
-    size = len(data)
-    size1 = len(data1)
-
-    for i in range(size):
-        books.append(Book(data[i]['id'], data[i]['name'], data[i]['author'], data[i]['description'], data[i]['mark']))
-
-    for i in range(size1):
-        genres.append(Genre(data1[i]['id'], data1[i]['name']))
-
-    if len(data) == 0:
-        books = None
-
+    books, genres = get_books_for_user(token)
     return render_template('my_books.html', user_token=token, books=books, genres=genres)
 
 
@@ -126,65 +95,41 @@ def add_book_to_user(token):
     return redirect(url_for('get_books', token=token))
 
 
-@app.route('/analyse_book', methods = ['GET', 'POST'])
+@app.route('/analyse_book', methods=['GET'])
 def analyse_book():
-    if request.method == 'POST':
-      file = request.files['file']
-
-      if file and file.filename.split('.', 1)[1] in app.config['ALLOWED_EXTENSIONS']:
-              filename = secure_filename(file.filename)
-              file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-              file.save(file_path)
-
-              documents = load.get_doc_from_file(file_path)
-              check_model = get_model_for_genre([documents])
-
-              prop_list = ["MODEL_ADVENTURE", "MODEL_ART", "MODEL_DETECTIVE", "MODEL_FANTASTIC", "MODEL_FANTASY",
-                           "MODEL_LOVE"]
-              genre_labels = ['приключения', 'искусство', 'детектив', 'фантастика', 'фэнтези', 'любовь']
-              train_list = []
-
-              for item in prop_list:
-                  print("Модель: {0}".format(item))
-                  model_prop = getattr(FileConstants, item)
-                  model = Doc2Vec.load(model_prop.fget(FileConstants()))
-                  train = preprocess_array(get_model_ratio(model))
-                  train_list.append(train)
-                  print(" ")
-
-              check_train1 = preprocess_array(np.array(check_model.docvecs[str(0)]))
-              np_train_list = np.asarray(train_list)
-
-              counter = 0
-
-              labels = []
-
-              for i in range(1, 7):
-                  a = np.empty(6)
-                  a.fill(i)
-                  labels.append(a)
-
-              labels = np.asarray(labels)
-              print(np_train_list)
-              print("======================")
-              print(labels)
-
-              clf.fit(np_train_list, [1, 2, 3, 4, 5, 6])
-
-              test = []
-
-              for i in range(6):
-                  test.append(np.random.randint(200, size=20))
-
-              test = np.asarray(test)
-
-              for i in range(6):
-                  print("Расчёт для жанра \"{0}\"".format(genre_labels[counter]))
-                  check = test.copy()
-                  check[counter] = check_train1
-                  print(clf.predict(check))
-
-                  counter += 1
+    return render_template("setBook.html")
 
 
-      return redirect('имя файла с css')        
+@app.route('/display_coefficients', methods = ['POST'])
+def display_coefficients():
+
+    book_author = request.form['book_author']
+    book_title = request.form['book_title']
+    book_description = request.form['book_description']
+    book_content = request.files['file']
+
+    book = Book('', book_title, book_author, book_description, '')
+    coefficients = analyse_book_for_user(book_content)
+
+    return render_template("results.html", book = book, coefficients = coefficients)
+
+
+@app.route('/send_coefficients', methods = ['POST'])
+def send_coefficients():
+
+    result_dict = {}
+    result_dict['name'] = request.form['title']
+    result_dict['author'] = request.form['author']
+    result_dict['description'] = request.form['description']
+    result_dict['coef_adventure'] = request.form['adventure']
+    result_dict['coef_art'] = request.form['art']
+    result_dict['coef_detective'] = request.form['detective']
+    result_dict['coef_fantastic'] = request.form['fantastic']
+    result_dict['coef_fantasy'] = request.form['fantasy']
+    result_dict['coef_love'] = request.form['love']
+
+    print(result_dict)
+    api_url = 'https://soul-cloud-api.herokuapp.com/books'
+    requests.post(api_url, result_dict)
+
+    return redirect(url_for('index'))
