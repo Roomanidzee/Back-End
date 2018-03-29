@@ -117,19 +117,17 @@
             </div>
 
             <h4>ВРУЧНУЮ:</h4>
-            <div class="panel panel-default  panel--styled">
+            <div class="panel panel-default panel-styled">
                 <div class="panel-body">
                     <div class="col-md-12 panelTop" style="padding: 5px">
-                        <form action="{{ url_for('display_coefficients') }}" enctype="multipart/form-data" method="POST">
-                            <input placeholder="Автор" name = "book_author" type="text" style="width: 400px">
-                            <p style="margin-top: 10px"><input style="width: 400px" placeholder="Название" name = "book_title" type="text"></p>
-                            <p style="margin-top: 10px"><textarea style="width: 400px" name = "book_description" placeholder="Описание книги"></textarea></p>
-                            <p>Содержимое</p>
+                        <form id = "form" action="{{ url_for('display_coefficients') }}" enctype="multipart/form-data" method="POST">
+                            <input class="w3-input" placeholder="Автор" name = "book_author" type="text" style="width: 400px">
+                            <input class="w3-input" style="width: 400px" placeholder="Название" name = "book_title" type="text">
+                            <textarea class="w3-input" style="width: 400px" name = "book_description" placeholder="Описание книги"></textarea>
+                            <p style="color: grey; margin-top: 10px">Содержимое</p>
                             <input type="file" name = "file" style="margin-top: 10px">
-                            <button type="submit" class="btn btn-lg btn-add-to-cart btn-green" style="margin-bottom: 5px; margin-top: 10px">Добавить
-                                <input type="hidden">
-                            </button>
                         </form>
+                        <button type="submit" form="form" class="btn btn-lg btn-green btn-add-to-cart" style="margin-bottom: 5px; margin-top: 10px">Добавить</button>
                     </div>
                 </div>
             </div>

@@ -46,8 +46,7 @@ def get_books_for_user(token : str):
 def analyse_book_for_user(file) -> Coefficients:
 
     if file:
-        filename = secure_filename(file.filename)
-        file_path = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+        file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
         file.save(file_path)
     else:
         raise TypeError
@@ -76,39 +75,31 @@ def analyse_book_for_user(file) -> Coefficients:
     np_train_list = np.asarray(train_list)
 
     counter = 0
-
-    labels = []
+    labels = [1, 2, 3, 4, 5, 6]
     result_dict = {}
 
-    for i in range(1, 7):
-        a = np.empty(6)
-        a.fill(i)
-        labels.append(a)
-
-    labels = np.asarray(labels)
-    print(np_train_list)
-    print("======================")
-    print(labels)
-
-    clf.fit(np_train_list, [1, 2, 3, 4, 5, 6])
+    clf.fit(np_train_list, labels)
 
     test = []
 
     for i in range(6):
-        test.append(np.random.randint(200, size=20))
+        test.append(np.random.randint(200, size = 20))
 
-    test = np.asarray(test)
+    temp_var = test.copy()
 
     for i in range(6):
+
         print("Расчёт для жанра \"{0}\"".format(genre_labels[counter]))
-        check = test.copy()
-        check[counter] = check_train1
+        check = temp_var.copy()
+        print(check)
+        print("=========")
+        print(check[i])
+        check[i] = np.asarray(check_train1)
         test = clf.predict(check)
         result = (np.sum(test) / np.size(test)) / 10
         print(result)
-        result_dict[key_labels[counter]] = result
-
-        counter += 1
+        result_dict[key_labels[i]] = result
+        counter +=1
 
     coefficients = Coefficients(result_dict['love'], result_dict['fantastic'], result_dict['detective'],
                                 result_dict['adventure'], result_dict['art'], result_dict['fantasy'])

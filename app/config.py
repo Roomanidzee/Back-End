@@ -7,5 +7,5 @@ class BaseConfig(object):
     SESSION_TYPE = 'redis'
     SESSION_REDIS = redis.Redis('192.168.99.100')
     API_URL = 'https://soul-cloud-api.herokuapp.com'
-    UPLOAD_FOLDER = 'backend_files'
+    UPLOAD_FOLDER = 'D:\\Projects\\Python\\SoulCloud\\site_backend\\app\\backend_files'
     ALLOWED_EXTENSIONS = {'.txt', '.json'}
